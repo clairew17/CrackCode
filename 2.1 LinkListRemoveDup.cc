@@ -1,4 +1,4 @@
-Write code to remove duplicates from an unsorted linked list. FOLLOW UP
+//Write code to remove duplicates from an unsorted linked list. FOLLOW UP
 
 struct ListNode {
      int val;
