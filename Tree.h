@@ -105,18 +105,22 @@ void InOrderTranversal(TreeNode* root){
 	stack<TreeNode*>TreeStack;
 	//if(root->right)TreeStack.push(root->right);
 	if(root)TreeStack.push(root);
-	TreeNode *node;
+	TreeNode *node=root;
+    while(node){
+        if(node->left)TreeStack.push(node->left);
+        node = node->left;
+    }
 	while(!TreeStack.empty()){
 		node = TreeStack.top();
-		if(node->left){
-			TreeStack.push(node->left);
-		}else{
-			//print cur
-			cout << node->val << ",";
-			TreeStack.pop();
-			if(node->right){
-				TreeStack.push(node->right);
-			}
+		cout << node->val << ",";
+        
+        if(node->right){
+			TreeStack.push(node->right);
+            node = node->right;
+            while(node){
+                node = node->left;
+                if(node)TreeStack.push(node);
+            }
 		}
 	}
 }
