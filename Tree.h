@@ -3,10 +3,13 @@
 void PrintGivenLevel(TreeNode* root,int level);
 void PrintByLevel(TreeNode* root);
 int height(TreeNode*root);
+void PreOrderTranversalRecurse(TreeNode* root);
+void InOrderTranversalRecurse(TreeNode* root);
+void PostOrderTranversalRecurse(TreeNode* root);
+void PostOrderTranversal(TreeNode* root);
 void PreOrderTranversal(TreeNode* root);
 void InOrderTranversal(TreeNode* root);
-void PostOrderTranversal(TreeNode* root);
-
+vector<int> in_order(TreeNode *root);
 
 int height(TreeNode*root){
 	if(root==NULL)return 0;
@@ -52,28 +55,95 @@ void PrintGivenLevel(TreeNode* root,int level){
 	cout << endl;
 
 }*/
-void PreOrderTranversal(TreeNode* root){
+void PreOrderTranversalRecurse(TreeNode* root){
 	//cout << "TREE:\n";
 	if(root==NULL)return;
 	cout << root->val << ',';
-	PreOrderTranversal(root->left);
-	PreOrderTranversal(root->right);
+	PreOrderTranversalRecurse(root->left);
+	PreOrderTranversalRecurse(root->right);
 	
 
 }
-void InOrderTranversal(TreeNode* root){
+void InOrderTranversalRecurse(TreeNode* root){
 	//cout << "TREE:\n";
 	if(root==NULL)return;
-	InOrderTranversal(root->left);
+	InOrderTranversalRecurse(root->left);
 	cout << root->val << ',';
-	InOrderTranversal(root->right);
+	InOrderTranversalRecurse(root->right);
 
 }
-void PostOrderTranversal(TreeNode* root){
+void PostOrderTranversalRecurse(TreeNode* root){
 	//cout << "TREE:\n";
 	if(root==NULL)return;
-	PostOrderTranversal(root->left);
-	PostOrderTranversal(root->right);
+	PostOrderTranversalRecurse(root->left);
+	PostOrderTranversalRecurse(root->right);
 	cout << root->val << ',';
+}
 
+void PreOrderTranversal(TreeNode* root){
+	//cout << "TREE:\n";
+	if(root==NULL)return;
+	stack<TreeNode*>TreeStack;
+	TreeStack.push(root);
+	//cout << root->val << endl;
+	TreeNode *node;
+	while(!TreeStack.empty()){
+		node  = TreeStack.top();
+		TreeStack.pop();
+		cout << node->val << ',';
+		if(node->right)TreeStack.push(node->right);
+		if(node->left)TreeStack.push(node->left);
+	}
+	//cout << root->val << ',';
+}
+
+void PostOrderTranversal(TreeNode* root){
+
+}
+void InOrderTranversal(TreeNode* root){
+	if(root==NULL)return;
+	stack<TreeNode*>TreeStack;
+	//if(root->right)TreeStack.push(root->right);
+	if(root)TreeStack.push(root);
+	TreeNode *node;
+	while(!TreeStack.empty()){
+		node = TreeStack.top();
+		if(node->left){
+			TreeStack.push(node->left);
+		}else{
+			//print cur
+			cout << node->val << ",";
+			TreeStack.pop();
+			if(node->right){
+				TreeStack.push(node->right);
+			}
+		}
+	}
+}
+
+vector<int> in_order(TreeNode *root){
+    stack<TreeNode*> st;
+    vector<int> ar;
+    if (root == NULL) return ar;
+    st.push(root);
+    while (!st.empty()) {
+        TreeNode *root = st.top();
+        if (root->left) {
+            st.push(root->left);
+        } else {
+            ar.push_back(root->val);
+            st.pop();
+            if (root->right) {
+                st.push(root->right);
+            }
+            
+            if (!st.empty()) {
+                root = st.top();
+                ar.push_back(root->val);
+                st.pop();
+            }
+
+        }
+    }
+    return ar;
 }

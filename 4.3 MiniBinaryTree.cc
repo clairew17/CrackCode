@@ -18,8 +18,10 @@ TreeNode* GenerateTree(vector<int> &nums,int start, int end){
 	if(start>=end)return NULL;
 	int mid = (start+end)/2;
 	TreeNode* node = new TreeNode(nums[mid]);
+
 	node->left = GenerateTree(nums,start,mid);
 	node->right = GenerateTree(nums,mid+1,end);
+
 	return node;
 }
 
@@ -73,24 +75,35 @@ void destroy_tree(TreeNode *leaf)
 
 int main(){
 	vector<int>nums;
-	int size = 10;
+	int size = 5;
 	int i=size;
 	while(i--){
-		nums.push_back(rand()%100);
+		nums.push_back(i);
 	}
 	sort(nums.begin(),nums.end());
 	PrintVector(nums);
+	TreeNode* node=MiniBinaryTree(nums);
 
-	//TreeNode* node=MiniBinaryTree(nums);
-	TreeNode* node= GenerateBSTree(nums);
+	//TreeNode* node= GenerateBSTree(nums);
 
 	cout << "height= "<<height(node)<<endl;
-	//PrintByLevel(node);
+	cout << "\nBy Level:\n";
+	PrintByLevel(node);
 	cout << "\nIn Order:\n";
+	InOrderTranversalRecurse(node);
+	cout << endl;
 	InOrderTranversal(node);
+	//vector<int>temp = in_order(node);
+	//PrintVector(temp);
+
 	cout << "\nPre Order:\n";
-	PreOrderTranversal(node);
+	PreOrderTranversalRecurse(node);
+	cout << endl;
+	PreOrderTranversalRecurse(node);
+
 	cout << "\nPost Order:\n";
+	PostOrderTranversalRecurse(node);
+	cout << endl;
 	PostOrderTranversal(node);
 	cout << endl;
 	return 0;
