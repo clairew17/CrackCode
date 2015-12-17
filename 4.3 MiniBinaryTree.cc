@@ -24,7 +24,7 @@ TreeNode* GenerateTree(vector<int> &nums,int start, int end){
 }
 
 TreeNode* GenerateBSTree(vector<int> nums){
-	TreeNode*root;
+	TreeNode*root(NULL);
 	for(auto n:nums){
 		Insert2BST(n,root);
 	}
@@ -33,6 +33,7 @@ TreeNode* GenerateBSTree(vector<int> nums){
 
 void Insert2BST(int key, TreeNode *&leaf)
 {
+    if(leaf==NULL)cout << "NULL\n";
 	if(leaf==NULL){
 		leaf=new TreeNode(key);
       	leaf->left=NULL;    //Sets the left child of the child node to null
