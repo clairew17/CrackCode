@@ -10,6 +10,63 @@ void PostOrderTranversal(TreeNode* root);
 void PreOrderTranversal(TreeNode* root);
 void InOrderTranversal(TreeNode* root);
 vector<int> in_order(TreeNode *root);
+void destroy_tree(TreeNode *leaf);
+void Insert2BST(int key, TreeNode *&leaf);
+void Insert2BST(int val,TreeNode* &root);
+TreeNode* GenerateBSTree(vector<int> nums);
+void PrintTree(TreeNode* node);
+TreeNode* MiniBinaryTree(vector<int> &nums);
+TreeNode* GenerateTree(vector<int> &nums,int start, int end);
+
+
+
+
+TreeNode* GenerateBSTree(vector<int> nums){
+	TreeNode*root(NULL);
+	for(auto n:nums){
+		Insert2BST(n,root);
+	}
+	return root;
+}
+void Insert2BST(int key, TreeNode *&leaf)
+{
+    if(leaf==NULL)cout << "NULL\n";
+	if(leaf==NULL){
+		leaf=new TreeNode(key);
+      	leaf->left=NULL;    //Sets the left child of the child node to null
+      	leaf->right=NULL;
+  }else if(key< leaf->val)
+  {
+    if(leaf->left!=NULL)
+     Insert2BST(key, leaf->left);
+    else
+    {
+      leaf->left=new TreeNode(key);
+      leaf->left->left=NULL;    //Sets the left child of the child node to null
+      leaf->left->right=NULL;   //Sets the right child of the child node to null
+    }  
+  }
+  else if(key>=leaf->val)
+  {
+    if(leaf->right!=NULL)
+      Insert2BST(key, leaf->right);
+    else
+    {
+      leaf->right=new TreeNode(key);
+      leaf->right->left=NULL;  //Sets the left child of the child node to null
+      leaf->right->right=NULL; //Sets the right child of the child node to null
+    }
+  }
+}
+void destroy_tree(TreeNode *leaf)
+{
+  if(leaf!=NULL)
+  {
+    destroy_tree(leaf->left);
+    destroy_tree(leaf->right);
+    delete leaf;
+  }
+}
 
 int height(TreeNode*root){
 	if(root==NULL)return 0;
@@ -98,30 +155,65 @@ void PreOrderTranversal(TreeNode* root){
 }
 
 void PostOrderTranversal(TreeNode* root){
+	if(root==NULL)return;
+	stack<TreeNode*>TreeStack;
+
+	TreeNode *node=root;
+	
+
+	while(node){
+		TreeStack.push(node);
+		node = node->right;
+	}
+
+	node = TreeStack.top();
+	while(!TreeStack.empty() && node)
+	{
+		//print & pop
+		node = TreeStack.top();
+		node = node->left;
+		while(node){
+			TreeStack.push(node);
+			node = node->left;
+		}
+
+		node = TreeStack.top();
+		TreeStack.pop();
+		cout << node->val << ",";
+	}
+
 
 }
 void InOrderTranversal(TreeNode* root){
 	if(root==NULL)return;
 	stack<TreeNode*>TreeStack;
-	//if(root->right)TreeStack.push(root->right);
-	if(root)TreeStack.push(root);
-	TreeNode *node;
-	while(!TreeStack.empty()){
+	TreeNode *node=root;
+
+	//push all left child
+	while(node){
+		TreeStack.push(node);
+		node = node->left;
+	}
+
+	while(!TreeStack.empty())
+	{
+		//print & pop
 		node = TreeStack.top();
-		if(node->left){
-			TreeStack.push(node->left);
-		}else{
-			//print cur
-			cout << node->val << ",";
-			TreeStack.pop();
-			if(node->right){
-				TreeStack.push(node->right);
-			}
+		TreeStack.pop();
+		cout << node->val << ",";
+
+		//acces right child
+		node = node->right;
+
+		while(node){
+			TreeStack.push(node);
+			node = node->left;
 		}
 	}
+
 }
 
-vector<int> in_order(TreeNode *root){
+vector<int> in_order(TreeNode *root) {
     stack<TreeNode*> st;
     vector<int> ar;
     if (root == NULL) return ar;
@@ -136,14 +228,44 @@ vector<int> in_order(TreeNode *root){
             if (root->right) {
                 st.push(root->right);
             }
-            
-            if (!st.empty()) {
-                root = st.top();
-                ar.push_back(root->val);
-                st.pop();
-            }
-
         }
     }
     return ar;
+}
+
+void PrintTree(TreeNode* node)
+{
+
+	cout << "height= "<<height(node);
+	cout << "\nBy Level:\n";
+	PrintByLevel(node);
+	cout << "\nIn Order:\n";
+	InOrderTranversalRecurse(node);
+	//cout << endl;
+	//InOrderTranversal(node);
+	//PrintVector(in_order(node));
+	cout << "\nPre Order:\n";
+	PreOrderTranversalRecurse(node);
+	cout << "\nPost Order:\n";
+	PostOrderTranversalRecurse(node);
+	//PostOrderTranversal(node);
+	cout << endl;
+	//PostOrderTranversal(node);
+	cout << endl;
+}
+TreeNode* MiniBinaryTree(vector<int> &nums)
+{
+	return GenerateTree(nums,0,nums.size());
+}
+TreeNode* GenerateTree(vector<int> &nums,int start, int end)
+{
+	//cout << start <<","<< end << endl;
+	if(start>=end)return NULL;
+	int mid = (start+end)/2;
+	TreeNode* node = new TreeNode(nums[mid]);
+
+	node->left = GenerateTree(nums,start,mid);
+	node->right = GenerateTree(nums,mid+1,end);
+
+	return node;
 }

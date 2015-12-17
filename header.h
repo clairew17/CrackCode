@@ -16,13 +16,16 @@ using namespace std;
 
 struct TreeNode
 {
-	/* data */
-	int val;
+    int val;
 	TreeNode *left;
 	TreeNode *right;
 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
-
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
 
 void FindDeleteString(string &str1, string str2);
 vector<int> windowsum(vector<int>nums, int ws);
