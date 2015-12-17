@@ -187,6 +187,7 @@ void PostOrderTranversal(TreeNode* root){
 void InOrderTranversal(TreeNode* root){
 	if(root==NULL)return;
 	stack<TreeNode*>TreeStack;
+<<<<<<< HEAD
 	TreeNode *node=root;
 
 	//push all left child
@@ -208,6 +209,26 @@ void InOrderTranversal(TreeNode* root){
 		while(node){
 			TreeStack.push(node);
 			node = node->left;
+=======
+	//if(root->right)TreeStack.push(root->right);
+	if(root)TreeStack.push(root);
+	TreeNode *node=root;
+    while(node){
+        if(node->left)TreeStack.push(node->left);
+        node = node->left;
+    }
+	while(!TreeStack.empty()){
+		node = TreeStack.top();
+		cout << node->val << ",";
+        
+        if(node->right){
+			TreeStack.push(node->right);
+            node = node->right;
+            while(node){
+                node = node->left;
+                if(node)TreeStack.push(node);
+            }
+>>>>>>> 35f2d3369fe369edf9d8366a8d53484153ce7c04
 		}
 	}
 
