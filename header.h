@@ -71,9 +71,10 @@ void PrintVector(vector<int>nums){
     for(int i=0;i<nums.size();i++){
         cout << nums[i];
         if(i<nums.size()-1)cout << ',';
-        else cout <<endl;
+        //else cout <<endl;
     }
-    //cout <<endl;
+
+    cout <<endl;
 }
 //true if two vectors are equal
 bool CmpVector(vector<int>v1, vector<int>v2){

@@ -18,3 +18,4 @@ ListNode* N2Last(ListNode*head,int N){
         i++;
     }
     return slow;
+}
