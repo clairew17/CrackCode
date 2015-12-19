@@ -2,6 +2,9 @@
 
 void PrintGivenLevel(TreeNode* root,int level);
 void PrintByLevel(TreeNode* root);
+void PrintTree(TreeNode* node);
+
+
 int height(TreeNode*root);
 void PreOrderTranversalRecurse(TreeNode* root);
 void InOrderTranversalRecurse(TreeNode* root);
@@ -14,10 +17,9 @@ void destroy_tree(TreeNode *leaf);
 void Insert2BST(int key, TreeNode *&leaf);
 void Insert2BST(int val,TreeNode* &root);
 TreeNode* GenerateBSTree(vector<int> nums);
-void PrintTree(TreeNode* node);
 TreeNode* MiniBinaryTree(vector<int> &nums);
 TreeNode* GenerateTree(vector<int> &nums,int start, int end);
-
+TreeNode* CreateTree(int n);
 
 
 
@@ -189,28 +191,6 @@ void InOrderTranversal(TreeNode* root){
 	stack<TreeNode*>TreeStack;
 	TreeNode *node=root;
 
-	//push all left child
-	while(node){
-		TreeStack.push(node);
-		node = node->left;
-	}
-
-	while(!TreeStack.empty())
-	{
-		//print & pop
-		node = TreeStack.top();
-		TreeStack.pop();
-		cout << node->val << ",";
-
-		//acces right child
-		node = node->right;
-
-		while(node){
-			TreeStack.push(node);
-			node = node->left;
-	//if(root->right)TreeStack.push(root->right);
-	if(root)TreeStack.push(root);
-	TreeNode *node=root;
     while(node){
         if(node->left)TreeStack.push(node->left);
         node = node->left;
@@ -228,6 +208,7 @@ void InOrderTranversal(TreeNode* root){
             }
 		}
 	}
+
 
 }
 
@@ -271,6 +252,24 @@ void PrintTree(TreeNode* node)
 	//PostOrderTranversal(node);
 	cout << endl;
 }
+
+//create binary tree with n nodes
+TreeNode* CreateTree(int n)
+{
+	vector<int>nums;
+	int size = n;
+	int i=size;
+	while(i--){
+		nums.push_back(rand()%10);
+	}
+	//sort(nums.begin(),nums.end());
+	PrintVector(nums);
+	TreeNode* root= MiniBinaryTree(nums);
+	PrintTree(root);
+	return root;
+}
+
+
 TreeNode* MiniBinaryTree(vector<int> &nums)
 {
 	return GenerateTree(nums,0,nums.size());
