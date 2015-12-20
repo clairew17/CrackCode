@@ -37,16 +37,7 @@ TreeNode* leftmost(TreeNode* root)
 
 int main()
 {
-	vector<int>nums;
-	int size =5;
-	int i=size;
-	while(i--){
-		nums.push_back(i);
-	}
-	sort(nums.begin(),nums.end());
-	PrintVector(nums);
-	TreeNode* root= GenerateBSTree(nums);
-	PrintTree(root);
+	
 
 
 	TreeNode* next = Successor(root);
