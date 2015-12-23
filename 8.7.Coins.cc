@@ -11,6 +11,8 @@ void helper(vector<vector<int>> &res, vector<int> &sol, int sum, int coin_type){
 	//cout << sum << '\t' << max_num << '\t' << coin_type << endl;
 	for(int i=0;i <= max_num; i++){
 		//traverse of all possible # of current coin_type
+		
+		//set
 		sol[coin_type] = i;
 
 		int temp = sum - i*value[coin_type];
@@ -19,7 +21,7 @@ void helper(vector<vector<int>> &res, vector<int> &sol, int sum, int coin_type){
 		}else{
 			helper(res, sol, temp,coin_type+1);
 		}
-		
+		//reset
 		sol[coin_type] = 0;
 	}
 	

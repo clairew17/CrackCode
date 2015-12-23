@@ -10,9 +10,13 @@
 #include<utility>
 #include<cstdlib>
 #include<ctime>
+#include<queue> 
 #include<algorithm>
-#include<math.h>  
+#include<math.h> 
+#include<set> 
 using namespace std;
+
+string Result[2]={"False\n", "True\n"};
 
 struct TreeNode
 {
