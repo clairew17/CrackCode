@@ -34,7 +34,8 @@ struct ListNode {
 void FindDeleteString(string &str1, string str2);
 vector<int> windowsum(vector<int>nums, int ws);
 void PrintVector(vector<int>nums);
-
+ListNode* GenerateRandomLinkList(int len);
+void PrintLinkList(ListNode*head);
 
 //convert string in the format of [1,2,3]
 
@@ -90,5 +91,45 @@ bool CmpVector(vector<int>v1, vector<int>v2){
     }
     return true;
 
-
 }
+
+ListNode* GenerateRandomLinkList(int len){
+    //srand(time(NULL));
+    int MAXNUM = 100;
+    ListNode *head=new ListNode(0), *cur = head;
+    for(int i=0;i<len;i++){
+        cur->next = new ListNode(rand()%MAXNUM);
+        cur = cur->next;
+    }
+    return head->next;
+}
+
+void PrintLinkList(ListNode*head){
+    ListNode*cur = head;
+    while(cur){
+        cout << cur->val <<"->";
+        cur = cur->next;
+    }
+    cout << endl;
+}
+vector<int>GenerateRandomVector(int len){
+    //srand(time(NULL));
+    int MAXNUM = 100;
+    vector<int>res;
+    for(int i=0;i<len;i++){
+        res.push_back(rand()%MAXNUM);
+    }
+    sort(res.begin(),res.end());
+    return res;
+}
+
+ListNode* Vector2LinkList(vector<int> v1){
+    ListNode *head=new ListNode(v1[0]), *cur = head;
+    for(int i=1;i<v1.size();i++){
+        cur->next = new ListNode(v1[i]);
+        cur = cur->next;
+    }
+    return head;
+}
+
+
