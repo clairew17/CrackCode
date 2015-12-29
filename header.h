@@ -119,7 +119,7 @@ vector<int>GenerateRandomVector(int len){
     for(int i=0;i<len;i++){
         res.push_back(rand()%MAXNUM);
     }
-    sort(res.begin(),res.end());
+    //sort(res.begin(),res.end());
     return res;
 }
 
