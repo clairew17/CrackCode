@@ -15,7 +15,8 @@
 #include<math.h> 
 #include<set> 
 using namespace std;
-
+#define null INT_MIN
+#define ARRAY_SIZE(array) (sizeof((array))/sizeof((array[0])))
 string Result[2]={"False\n", "True\n"};
 
 struct TreeNode
@@ -36,7 +37,7 @@ vector<int> windowsum(vector<int>nums, int ws);
 void PrintVector(vector<int>nums);
 ListNode* GenerateRandomLinkList(int len);
 void PrintLinkList(ListNode*head);
-
+vector<int> Arr2Vec(int arr[], int n);
 //convert string in the format of [1,2,3]
 
 vector<int> string2vector(string s){
@@ -132,4 +133,12 @@ ListNode* Vector2LinkList(vector<int> v1){
     return head;
 }
 
+vector<int> Arr2Vec(int arr[], int n){
+    //int  n = sizeof(arr)/sizeof(int);
+    vector<int> res; 
+    for(int i=0;i<n;i++){
+        res.push_back(arr[i]);
+    }
+    return res;
+}
 

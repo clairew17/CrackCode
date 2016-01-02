@@ -264,7 +264,7 @@ TreeNode* CreateTree(int n)
 	}
 	//sort(nums.begin(),nums.end());
 	PrintVector(nums);
-	TreeNode* root= MiniBinaryTree(nums);
+	TreeNode* root= GenerateBSTree(nums);
 	PrintTree(root);
 	return root;
 }
