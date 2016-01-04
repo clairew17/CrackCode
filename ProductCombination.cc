@@ -22,13 +22,10 @@ vector<pair<int, int>>ProductCombination(int n){
 }
 
 int main(int argc, char *argv[]){
-
 	int n = stoi(argv[1]);
-
 	vector<pair<int, int>>res = ProductCombination(n);
 	for(auto r:res){
 		cout << r.first <<','<<r.second <<endl;
 	}
 	return 0;
-
 }

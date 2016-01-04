@@ -40,6 +40,8 @@ void PrintLinkList(ListNode*head);
 vector<int> Arr2Vec(int arr[], int n);
 //convert string in the format of [1,2,3]
 
+vector<int>GenerateRandomVector(int len);
+
 vector<int> string2vector(string s){
     vector<int>res;
     FindDeleteString(s,"[");
