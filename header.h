@@ -32,14 +32,22 @@ struct ListNode {
     ListNode(int x) : val(x), next(NULL) {}
 };
 
+//*************************** LinkList ***************************
+
+ListNode* FindMidLinkList(ListNode *head);
+ListNode* ReverseLinkList(ListNode *head);
+void InterleaveMergeLinkList(ListNode *head1, ListNode *head2);
+ListNode* GenerateRandomLinkList(int len);
+void PrintLinkList(ListNode*head);
+
+//*************************** LinkList ***************************
+
+
 void FindDeleteString(string &str1, string str2);
 vector<int> windowsum(vector<int>nums, int ws);
 void PrintVector(vector<int>nums);
-ListNode* GenerateRandomLinkList(int len);
-void PrintLinkList(ListNode*head);
 vector<int> Arr2Vec(int arr[], int n);
 //convert string in the format of [1,2,3]
-
 vector<int>GenerateRandomVector(int len);
 
 vector<int> string2vector(string s){
@@ -97,13 +105,14 @@ bool CmpVector(vector<int>v1, vector<int>v2){
 }
 
 ListNode* GenerateRandomLinkList(int len){
-    //srand(time(NULL));
-    int MAXNUM = 100;
+    vector<int>vect = GenerateRandomVector(len);
+
     ListNode *head=new ListNode(0), *cur = head;
     for(int i=0;i<len;i++){
-        cur->next = new ListNode(rand()%MAXNUM);
+        cur->next = new ListNode(vect[i]);
         cur = cur->next;
     }
+    PrintLinkList(head->next);cout << endl;
     return head->next;
 }
 
@@ -117,12 +126,14 @@ void PrintLinkList(ListNode*head){
 }
 vector<int>GenerateRandomVector(int len){
     //srand(time(NULL));
-    int MAXNUM = 100;
+    int MAXNUM = 5;
     vector<int>res;
     for(int i=0;i<len;i++){
         res.push_back(rand()%MAXNUM);
     }
+    //uncomment this line if you want unsorted linklist
     //sort(res.begin(),res.end());
+    PrintVector(res);
     return res;
 }
 
@@ -142,5 +153,60 @@ vector<int> Arr2Vec(int arr[], int n){
         res.push_back(arr[i]);
     }
     return res;
+}
+
+
+
+//return the node before mid point of linklist
+ListNode* FindMidLinkList(ListNode*head){
+    //if(head==NULL || head->next==NULL)return NULL;
+
+    ListNode *slow = head, *fast = head, *pre = head;
+    while(fast && fast->next){
+        pre = slow;
+        fast = fast->next->next;
+        slow = slow->next;
+    }
+
+    if(fast==NULL){//even number of node 
+        //do nothing
+    }else{//odd number of node
+        slow = slow->next;;
+        //pre = pre->next;
+    }
+    //return the node before mid
+    //odd: n/2 th node
+    //even n/2 -1 th node
+    return pre;
+
+}
+
+//reverse linklist
+ListNode* ReverseLinkList(ListNode *head){
+    if(head==NULL)return NULL;
+    ListNode *cur = head, *next, *pre = NULL;
+    while(cur){
+        next = cur->next;
+        cur->next = pre;
+        pre = cur;
+        cur = next;
+    }
+    return pre;
+}
+//merge two list in an inverleaving way
+void InterleaveMergeLinkList(ListNode *head1, ListNode *head2){
+    ListNode *p1 = head1, *p2 = head2, *next1, *next2;
+    while(p1 && p2){
+        //cout << p1->val << ',' << p2->val <<endl;
+        next1 = p1->next;
+        next2 = p2->next;
+
+        p1->next = p2;
+        p2->next = next1;
+        
+        p2 = next2;
+        p1 = next1;
+    }
+    //return head1;
 }
 

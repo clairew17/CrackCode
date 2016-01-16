@@ -2,11 +2,7 @@
 
 int main()
 {
-    char s[5]={'s','a','\0','c','h'};
-    char p[5];
-    char t[5];
-    strcpy(p,s);
-    memcpy(t,s,5);
-    printf("sachin p is [%s]\n t is [%s]\n",p,t);
+	//Signed values are automatically converted to unsigned. 
+    cout << 25 - 50u<<endl;
     return 0;
 }

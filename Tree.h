@@ -156,52 +156,48 @@ void PreOrderTranversal(TreeNode* root){
 	//cout << root->val << ',';
 }
 
-void PostOrderTranversal(TreeNode* root){
-	if(root==NULL)return;
-	stack<TreeNode*>TreeStack;
-
-	TreeNode *node=root;
-	
-
-	while(node){
-		TreeStack.push(node);
-		node = node->right;
-	}
-
-	node = TreeStack.top();
-	while(!TreeStack.empty() && node)
-	{
-		//print & pop
-		node = TreeStack.top();
-		node = node->left;
-		while(node){
-			TreeStack.push(node);
-			node = node->left;
-		}
-
-		node = TreeStack.top();
-		TreeStack.pop();
-		cout << node->val << ",";
-	}
 
 
+void PostOrderTranversal(TreeNode* root) {
+    stack<TreeNode*> nodeStack;
+    vector<int>res;
+    if(root==NULL)return;
+    nodeStack.push(root);
+
+    while(!nodeStack.empty()){
+        TreeNode *node = nodeStack.top();
+        res.push_back(node->val);
+        nodeStack.pop();
+
+        if(node->left)nodeStack.push(node->left);
+        if(node->right)nodeStack.push(node->right);
+
+    }
+    //reverse to get the post order
+    reverse(res.begin(), res.end());
+    PrintVector(res);
+    //return res;
 }
+
 void InOrderTranversal(TreeNode* root){
 	if(root==NULL)return;
 	stack<TreeNode*>TreeStack;
 	TreeNode *node=root;
 
-    while(node){
+    while(node){//push all left trees
         if(node->left)TreeStack.push(node->left);
         node = node->left;
     }
 	while(!TreeStack.empty()){
+		//print left and root
 		node = TreeStack.top();
 		cout << node->val << ",";
         
+        //push right tree
         if(node->right){
 			TreeStack.push(node->right);
             node = node->right;
+            //access the left tree
             while(node){
                 node = node->left;
                 if(node)TreeStack.push(node);
