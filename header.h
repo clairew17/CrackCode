@@ -13,7 +13,8 @@
 #include<queue> 
 #include<algorithm>
 #include<math.h> 
-#include<set> 
+#include<set>
+#include<unordered_set>
 using namespace std;
 #define null INT_MIN
 #define ARRAY_SIZE(array) (sizeof((array))/sizeof((array[0])))
@@ -126,7 +127,7 @@ void PrintLinkList(ListNode*head){
 }
 vector<int>GenerateRandomVector(int len){
     //srand(time(NULL));
-    int MAXNUM = 5;
+    int MAXNUM = 100;
     vector<int>res;
     for(int i=0;i<len;i++){
         res.push_back(rand()%MAXNUM);
